@@ -8,7 +8,7 @@
 			     , GROUP_NM
 			     , GROUP_CREAT_DE
 			     , GROUP_DC
-			  FROM COMTN_GROUP_INFO
+			  FROM COMTNGROUPINFO
     </select>
     
     <select id="selectGrpDetail"  parameterType="Map" resultType="hashMap">
@@ -16,12 +16,12 @@
 			     , GROUP_NM
 			     , GROUP_CREAT_DE
 			     , GROUP_DC
-			  FROM COMTN_GROUP_INFO
+			  FROM COMTNGROUPINFO
 			 WHERE GROUP_ID = '${GRPID}'
     </select>
 
     <insert id="insertGrpInfo" parameterType="hashMap">
-			INSERT INTO COMTN_GROUP_INFO (
+			INSERT INTO COMTNGROUPINFO (
 			  GROUP_ID
 			, GROUP_NM
 			, GROUP_CREAT_DE
@@ -37,7 +37,7 @@
     </insert>
     
     <update id="updateGrpInfo" parameterType="hashMap">
-			UPDATE COMTN_GROUP_INFO
+			UPDATE COMTNGROUPINFO
 			   SET CHANGE_DT = DATE_FORMAT(CURRENT_TIMESTAMP, '%Y%m%d%H%i%s')
 			    <if test='GROUP_NM != null'> 	, GROUP_NM	= '${GROUP_NM}' 	</if>
 			    <if test='GROUP_DC != null'> 	, GROUP_DC	= '${GROUP_DC}' 	</if>
@@ -45,7 +45,7 @@
     </update>
     
     <delete id="deleteGrpInfo" parameterType="hashMap">
-			DELETE FROM COMTN_GROUP_INFO
+			DELETE FROM COMTNGROUPINFO
 			 WHERE GROUP_ID           = '${GROUP_ID}'
     </delete>
     
@@ -54,12 +54,12 @@
 			SELECT GROUP_ID
 			     , USR_ID
 			     , ADD_DT
-			  FROM COMTN_GROUP_USR
+			  FROM COMTNGROUPUSR
 			 WHERE GROUP_ID = '${GRP_ID}'
     </select>
 
     <insert id="insertGrpUsr" parameterType="hashMap">
-			INSERT INTO COMTN_GROUP_USR (
+			INSERT INTO COMTNGROUPUSR (
 			  GROUP_ID
 			, USR_ID
 			, ADD_DT
@@ -71,18 +71,18 @@
     </insert>
      <select id="selectGrpUsrCk" parameterType="Map" resultType="int">
 			SELECT COUNT(*) as cnt
-			  FROM COMTN_GROUP_USR
+			  FROM COMTNGROUPUSR
 			 WHERE GROUP_ID = '${GRP_ID}'
 			   AND USR_ID = '${USR_ID}'
     </select>
     <select id="selectUsrCk" parameterType="Map" resultType="int">
 			SELECT COUNT(*) as cnt
-			  FROM USER_MNG
+			  FROM COMTNUSERMNG
 			 WHERE USR_ID = '${USR_ID}'
     </select>
     
     <delete id="deleteGrpUsr" parameterType="hashMap">
-			DELETE FROM COMTN_GROUP_USR
+			DELETE FROM COMTNGROUPUSR
 			 WHERE GROUP_ID           = '${GRP_ID}'
 			   AND USR_ID           = '${USR_ID}'
     </delete>

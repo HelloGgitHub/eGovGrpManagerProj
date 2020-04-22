@@ -77,10 +77,14 @@ public class GrpUsrController {
 		sqlInpt.put("GRP_ID", pGrpId);
 		
 
-		int chkCnt = grpService.selectGrpUsrCk(sqlInpt);
-		if(chkCnt > 0) {
+		int chkReUse = grpService.selectGrpUsrCk(sqlInpt);
+		int chkUsrAble = grpService.selectUsrCk(sqlInpt);
+		if(chkReUse > 0) {
 			rtnMap.put("RESULTCD", "9");
 			rtnMap.put("RESULTMSG", "이미 등록된 사용자 입니다.");
+		}else if(chkUsrAble > 0) {
+			rtnMap.put("RESULTCD", "8");
+			rtnMap.put("RESULTMSG", "사용자 ID가 올바르지 않습니다.");
 		}else {
 			int inputCnt = grpService.insertGrpUsr(sqlInpt);
 			if(inputCnt > 0) {

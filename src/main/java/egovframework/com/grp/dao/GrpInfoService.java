@@ -46,9 +46,13 @@ public class GrpInfoService {
 	public int insertGrpUsr(Map<Object, Object> param) {
         return mapper.insertGrpUsr(param);
     }
-	//그룹 사용자 추가
+	//그룹 기등록여부 확인
 	public int selectGrpUsrCk(Map<Object, Object> param) {
         return mapper.selectGrpUsrCk(param);
+    }
+	//등록된 사용자 여부 확인
+	public int selectUsrCk(Map<Object, Object> param) {
+        return mapper.selectUsrCk(param);
     }
 	//그룹 사용자 삭제
 	public int deleteGrpUsr(Map<Object, Object> param) {

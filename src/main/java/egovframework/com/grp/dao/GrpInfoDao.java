@@ -30,6 +30,8 @@ public interface GrpInfoDao {
 	int insertGrpUsr(Map<Object, Object> param);
 	//그룹 사용자 기등록여부 확인
 	int selectGrpUsrCk(Map<Object, Object> param);
+	//등록된 사용자 여부 확인
+	int selectUsrCk(Map<Object, Object> param);
 	//그룹 사용자 삭제
 	int deleteGrpUsr(Map<Object, Object> param);
 

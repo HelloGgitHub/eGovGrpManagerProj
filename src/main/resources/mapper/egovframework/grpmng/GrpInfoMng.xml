@@ -75,6 +75,11 @@
 			 WHERE GROUP_ID = '${GRP_ID}'
 			   AND USR_ID = '${USR_ID}'
     </select>
+    <select id="selectUsrCk" parameterType="Map" resultType="int">
+			SELECT COUNT(*) as cnt
+			  FROM USER_MNG
+			 WHERE USR_ID = '${USR_ID}'
+    </select>
     
     <delete id="deleteGrpUsr" parameterType="hashMap">
 			DELETE FROM COMTN_GROUP_USR

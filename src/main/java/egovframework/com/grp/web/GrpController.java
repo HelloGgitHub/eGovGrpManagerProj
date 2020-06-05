@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@Api(value = "GrpController", description = "그룹 정보 관리 REST APIdddddddd")
+@Api(value = "GrpController", description = "그룹 정보 관리 REST APIddddddddddddd")
 @RequestMapping("/grp")
 public class GrpController {
 	

@@ -26,17 +26,38 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 
+/**
+ * @title : 사용자 그룹관리 
+ * @package : egovframework.com.grp.web
+ * @filename : GrpController.java
+ * @author : "egov"
+ * @since : 2020. 6. 15.
+ * @version : 1.0
+ * @desc : 사용자 그룹관리에 필요한 API 모음
+ * 
+ *  ======= 변경이력 =======
+ * 
+ * 날자                       변경자                  설명
+ * ----------         -------           ------------------------------------
+ * 2020. 6. 15.         "egov"           최초 생성(ver 1.0)
+ * 
+ */
 @RestController
-@Api(value = "GrpController", description = "그룹 정보 관리 REST APIddddddddddddd")
+@Api(value = "GrpController", description = "그룹 정보 관리 REST API")
 @RequestMapping("/grp")
 public class GrpController {
 	
 	@Autowired
 	GrpInfoService grpService;
 	
+	/**
+	 * @name : UserList(그룹목록 조회)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 사용자 그룹 목록을 조회한다.
+	 */
 	@ApiOperation(value = "그룹목록 조회")
 	@GetMapping(path = "/list")
 	public String UserList() {
@@ -46,7 +67,6 @@ public class GrpController {
 
 		List<HashMap<Object, Object>> lst = new ArrayList<HashMap<Object, Object>>();
 		lst = grpService.selectGrpList();
-		System.out.println(lst);
 		
 		try {
 			rtn = om.writeValueAsString(lst);
@@ -57,7 +77,15 @@ public class GrpController {
 		
 		return rtn;
 	}
+
 	
+	/**
+	 * @name : GrpDetailInfo(그룹정보 조회)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 그룹에 대한 정보를 조회한다.
+	 */
 	@ApiOperation(value = "그룹정보 조회")
     @ApiImplicitParams({
     	@ApiImplicitParam(name = "groupId", value = "그룹ID", required = true, dataType = "string", paramType = "path", defaultValue = "")
@@ -72,7 +100,6 @@ public class GrpController {
 		sqlInpt.put("GRPID", URLDecoder.decode(grpId		,"UTF-8"));
 		
 		lst = grpService.selectGrpDetail(sqlInpt);
-		System.out.println(lst);
 		
 		try {
 			rtn = om.writeValueAsString(lst);
@@ -83,13 +110,16 @@ public class GrpController {
 		
 		return rtn;
 	}
+
 	
+	/**
+	 * @name : InsertGroupInfo(그룹정보 등록)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 신규 그룹을 생성한다.
+	 */
 	@ApiOperation(value = "그룹 등록", notes = "그룹을 등록합니다.")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "OK !!"),
-            @ApiResponse(code = 500, message = "Internal Server Error !!"),
-            @ApiResponse(code = 404, message = "Not Found !!")
-    })
 	@PostMapping(path = "/addnew")
 	public String InsertGroupInfo(@RequestBody GrpVo param) throws Exception {
 
@@ -113,12 +143,18 @@ public class GrpController {
 		}
 		
 		rtn = om.writeValueAsString(rtnMap);
-		System.out.println(rtnMap);
 		return rtn;
 	}
 
 	
-	@ApiOperation(value = "그룹 정보수정")
+	/**
+	 * @name : UserChangeInfo(그룹정보 수정)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 등록된 그룹정보를 수정한다.
+	 */
+	@ApiOperation(value = "그룹정보 수정")
 	@PutMapping(path = "/modifyInfo")
 	public String UserChangeInfo(@RequestBody GrpVo param) throws Exception {
 		String rtn = "";
@@ -139,21 +175,21 @@ public class GrpController {
 			rtnMap.put("RESULTCD", "1");
 			rtnMap.put("RESULTMSG", "사용자 정보 변경에 실패 하였습니다.");
 		}
-		
 		rtn = om.writeValueAsString(rtnMap);
-		System.out.println(rtnMap);
 		return rtn;
 	}
 	
 	
+	/**
+	 * @name : GrpDeleteInfo(그룹 삭제)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 등록된 사용자 그룹정보를 삭제 한다.
+	 */
 	@ApiOperation(value = "그룹 삭제", notes = "그룹을 삭제한다")
     @ApiImplicitParams({
     	@ApiImplicitParam(name = "groupId"	, value = "그룹ID"	, required = true, dataType = "string", paramType = "query", defaultValue = "")
-    })
-    @ApiResponses({
-        @ApiResponse(code = 200, message = "OK !!"),
-        @ApiResponse(code = 500, message = "Internal Server Error !!"),
-        @ApiResponse(code = 404, message = "Not Found !!")
     })
 	@DeleteMapping(path = "/deleteGrp")
 	public String GrpDeleteInfo(@RequestParam(value = "groupId") String grpId) throws Exception {
@@ -177,7 +213,6 @@ public class GrpController {
 		}
 		
 		rtn = om.writeValueAsString(rtnMap);
-		System.out.println(rtnMap);
 		return rtn;
 	}
 	

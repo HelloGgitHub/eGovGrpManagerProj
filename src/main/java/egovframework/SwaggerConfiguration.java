@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -28,25 +27,12 @@ public class SwaggerConfiguration {
         		.useDefaultResponseMessages(false)
                 .groupName(version)
                 .select()
-//                .apis(RequestHandlerSelectors.any())
                 .apis(RequestHandlerSelectors.basePackage("egovframework.com"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo(title, version))
                .pathMapping("/");
     }
-	
-//    private ApiInfo apiInfo(String title, String version) {
-//        return new ApiInfo(
-//                title,
-//                "전자정보 클라우드 개발 환경[회원정보관리] API 테스트",
-//                version,
-//                "www.egovFrameCloud.com",
-//                new Contact("Contact Me", "www.egovFrameCloud.com", "egovCloud@example.com"),
-//                "Licenses",
-//                "www.egovFrameCloud.com",
-//                new ArrayList<>());
-//    }
     
     private ApiInfo apiInfo(String title, String version) {
         return new ApiInfo(

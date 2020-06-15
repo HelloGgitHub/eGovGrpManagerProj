@@ -22,6 +22,22 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 
+/**
+ * @title : 사용자 그룹 매핑 관리
+ * @package : egovframework.com.grp.web
+ * @filename : GrpUsrController.java
+ * @author : "egov"
+ * @since : 2020. 6. 15.
+ * @version : 1.0
+ * @desc : 사용자를 그룹과 매핑/삭제등 관리 하는데 필요한 API모음
+ * 
+ *  ======= 변경이력 =======
+ * 
+ * 날자                       변경자                  설명
+ * ----------         -------           ------------------------------------
+ * 2020. 6. 15.         "egov"           최초 생성(ver 1.0)
+ * 
+ */
 @RestController
 @Api(value = "GrpUsrController", description = "그룹 사용자 정보 관리 REST API")
 @RequestMapping("/grp")
@@ -30,7 +46,14 @@ public class GrpUsrController {
 	@Autowired
 	GrpInfoService grpService;
 	
-	@ApiOperation(value = "그룹사용자 목록", notes = "그룹 사용자 목록을 조회한다.")
+	/**
+	 * @name : grpUserList(그룹사용자 목록 조회)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 그룹에 매핑된 사용자 목록을 조회한다.
+	 */
+	@ApiOperation(value = "그룹사용자 목록 조회", notes = "그룹 사용자 목록을 조회한다.")
     @ApiImplicitParams({
        @ApiImplicitParam(name = "groupId"	, value = "그룹ID"		, required = true, dataType = "string", paramType = "query", defaultValue = "")
     })
@@ -47,15 +70,20 @@ public class GrpUsrController {
 		
 		List<HashMap<Object, Object>> lst = new ArrayList<HashMap<Object, Object>>();
 		lst = grpService.selectGrpUsrList(sqlInpt);
-		System.out.println(lst);
 		
 		rtn = om.writeValueAsString(lst);
-		System.out.println(rtn);
 		return rtn;
 	}
 	
 	
-	@ApiOperation(value = "그룹에 사용자 지정", notes = "그룹에 사용자를 등록한다.")
+	/**
+	 * @name : groupUserAdd(그룹 사용자 매핑)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 등록된 그룹에 사용자를 매핑한다.
+	 */
+	@ApiOperation(value = "그룹 사용자 매핑", notes = "그룹에 사용자를 등록한다.")
     @ApiImplicitParams({
     	@ApiImplicitParam(name = "userId"	, value = "사용자ID"	, required = true, dataType = "string", paramType = "query", defaultValue = "")
        ,@ApiImplicitParam(name = "groupId"	, value = "그룹ID"		, required = true, dataType = "string", paramType = "query", defaultValue = "")
@@ -75,7 +103,6 @@ public class GrpUsrController {
 		Map<Object, Object> sqlInpt = new HashMap<Object, Object>();
 		sqlInpt.put("USR_ID", pUsrId);
 		sqlInpt.put("GRP_ID", pGrpId);
-		
 
 		int chkReUse = grpService.selectGrpUsrCk(sqlInpt);
 		int chkUsrAble = grpService.selectUsrCk(sqlInpt);
@@ -97,15 +124,21 @@ public class GrpUsrController {
 		}
 		
 		rtn = om.writeValueAsString(rtnMap);
-		System.out.println(rtnMap);
 		return rtn;
 	}
 
 	
-	@ApiOperation(value = "그룹에 사용자 지정해제", notes = "그룹에 등록되어있는 사용자를 삭제한다.")
+	/**
+	 * @name : groupUserDelete(그룹 사용자 매핑 삭제)
+	 * @date : 2020. 6. 15.
+	 * @author : "egov"
+	 * @return_type : String
+	 * @desc : 그룹에 등록된 사용자 정보를 삭제한다.
+	 */
+	@ApiOperation(value = "그룹 사용자 매핑 삭제", notes = "그룹에 등록되어있는 사용자를 삭제한다.")
     @ApiImplicitParams({
-    	@ApiImplicitParam(name = "userId"	, value = "사용자ID"	, required = true, dataType = "string", paramType = "query", defaultValue = "")
-       ,@ApiImplicitParam(name = "groupId"	, value = "그룹ID"		, required = true, dataType = "string", paramType = "query", defaultValue = "")
+    	@ApiImplicitParam(name = "userId"		,value = "사용자ID"		,required = true	,dataType = "string"	,paramType = "query"	,defaultValue = "")
+       ,@ApiImplicitParam(name = "groupId"	,value = "그룹ID"		,required = true	,dataType = "string"	,paramType = "query"	,defaultValue = "")
     })
 	@DeleteMapping(path = "/usrSbt")
 	public String groupUserDelete(
@@ -133,7 +166,6 @@ public class GrpUsrController {
 		}
 		
 		rtn = om.writeValueAsString(rtnMap);
-		System.out.println(rtnMap);
 		return rtn;
 	}
 

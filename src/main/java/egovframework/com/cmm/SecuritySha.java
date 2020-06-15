@@ -3,6 +3,21 @@ package egovframework.com.cmm;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @title : [공통] 암호화
+ * @package : egovframework.com.cmm
+ * @filename : SecuritySha.java
+ * @author : "egov"
+ * @since : 2020. 6. 12.
+ * @version : 1.0
+ * 
+ *  ======= 변경이력 =======
+ * 
+ * 날자                       변경자                  설명
+ * ----------         -------           ------------------------------------
+ * 2020. 6. 12.         "egov"           최초 생성(ver 1.0)
+ * 
+ */
 public class SecuritySha {
 	
 	public static String SHA256(String str){
